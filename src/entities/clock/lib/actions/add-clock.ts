@@ -1,8 +1,8 @@
-import { ACTION_TYPES } from "../config";
+import { ACTION_TYPES } from "@shared/config";
 
 const { ADD_CLOCK } = ACTION_TYPES;
 
-export const addClock = (clock) => ({
+export const addClock = () => ({
     type: ADD_CLOCK,
-    payload: clock,
+    payload: { timezone: null },
 });

@@ -3,8 +3,9 @@ import { combineReducers, Reducer } from 'redux';
 import { clocksReducer } from './clocks';
 import { timezonesReducer } from './timezones';
 import { loadingReducer } from './loading';
-import { RootState } from '../actions/types';
+
 import { AppAction } from './types';
+import { RootState } from '@shared/config';
 
 export const rootReducer: Reducer<RootState, AppAction> = combineReducers({
     clocks: clocksReducer,

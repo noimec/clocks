@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "../config";
+import { ACTION_TYPES } from "@shared/config";
 
 const { SET_TIMEZONE } = ACTION_TYPES;
 
