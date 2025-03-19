@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "../config";
+import { ACTION_TYPES } from "../../../../shared/config";
 
 const { FETCH_TIMEZONES, ADD_CLOCK, REMOVE_CLOCK, SET_TIMEZONE } = ACTION_TYPES
 
