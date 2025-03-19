@@ -6,14 +6,20 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    clean: true,
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
+    alias: {
+      "@shared": path.resolve(__dirname, "src/shared"),
+      "@features": path.resolve(__dirname, "src/features"),
+      "@entities": path.resolve(__dirname, "src/entities"),
+    },
   },
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
         use: [
           {
@@ -27,6 +33,10 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader", "postcss-loader"],
       },
     ],
   },

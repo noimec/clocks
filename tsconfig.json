@@ -10,7 +10,12 @@
     "outDir": "./dist/",
     "rootDir": "./src/",
     "baseUrl": "./src",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@features/*": ["features/*"],
+      "@entities/*": ["entities/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

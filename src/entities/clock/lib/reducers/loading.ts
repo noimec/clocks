@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from '../config';
+import { ACTION_TYPES } from '@shared/config';
 import { LoadingActionTypes, LoadingState } from './types';
 
 const { FETCH_TIMEZONES } = ACTION_TYPES;
