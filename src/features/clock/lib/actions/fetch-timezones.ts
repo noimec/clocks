@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { ACTION_TYPES } from "../config";
-import { AppThunk, AppDispatch, RootState } from "./types";
+import { AppThunk, AppDispatch } from "./types";
+import { ACTION_TYPES, RootState } from "../../../../shared/config";
 
 const { FETCH_TIMEZONES } = ACTION_TYPES;
 
