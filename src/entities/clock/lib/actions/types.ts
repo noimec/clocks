@@ -1,7 +1,8 @@
 import { Action, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { AppAction } from "../../../../entities/clock";
-import { RootState } from "../../../../shared/config";
+
+import { AppAction } from "@entities/clock";
+import { RootState } from "@shared/config";
 
 
 export type AppDispatch = Dispatch<Action<string>> & ((thunk: AppThunk) => void);

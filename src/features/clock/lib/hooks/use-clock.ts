@@ -1,44 +1,50 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { RootState } from "../../../../shared/config";
-import { AppDispatch, fetchTimezones } from "../actions";
+import { RootState } from "@shared/config";
+import { addClock, fetchTimezones, removeClock, setTimezone } from "@entities/clock/lib/actions";
 
 export const useClock = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const { timezones, loading, clocks } = useSelector((state: RootState) => ({
+    const dispatch = useDispatch();
+    const { clocks, timezones, loading } = useSelector((state: RootState) => ({
+        clocks: state.clocks.clocks,
         timezones: state.timezones.timezones,
         loading: state.loading.loading,
-        clocks: state.clocks.clocks,
     }));
-
-    const [clockCount, setClockCount] = useState(1);
-    const [selectedCities, setSelectedCities] = useState([]);
 
     useEffect(() => {
         dispatch(fetchTimezones());
     }, [dispatch]);
 
-    const handleCityChange = (index, city) => {
-        const newSelectedCities = [...selectedCities];
-        newSelectedCities[index] = city;
-        setSelectedCities(newSelectedCities);
-    };
-
     const availableCities = Object.keys(timezones).filter(
         (city) =>
-            !selectedCities.includes(city) ||
-            selectedCities.indexOf(city) === selectedCities.lastIndexOf(city)
+            !clocks.some((clock) => clock.timezone === city) ||
+            clocks.filter((clock) => clock.timezone === city).length === 1
     );
 
+    const handleCityChange = (index: number, city: string) => {
+        dispatch(setTimezone(index, city));
+    };
+
+    const setClockCount = (count: number) => {
+        const currentCount = clocks.length;
+        if (count > currentCount) {
+            for (let i = currentCount; i < count; i++) {
+                dispatch(addClock());
+            }
+        } else if (count < currentCount) {
+            for (let i = currentCount - 1; i >= count; i--) {
+                dispatch(removeClock(i));
+            }
+        }
+    };
+
     return {
-        clockCount,
         availableCities,
         loading,
+        clocks,
         timezones,
-        selectedCities,
+        setClockCount,
         handleCityChange,
-        setClockCount
-    }
-
-}
+    };
+};

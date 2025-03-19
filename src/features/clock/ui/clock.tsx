@@ -1,68 +1,45 @@
-import { Loader } from "../../../shared/ui";
-import { useClock } from "../lib/hooks/use-clock";
 import { ClockDisplay } from "./clock-display";
+import { ClocksSelect } from "./clocks-select";
+import { ClockMenu } from "./clock-menu";
+
+import { Loader } from "@shared/ui";
+import { useClock } from "../lib/hooks";
 
 export const Clock = () => {
   const {
     loading,
-    clockCount,
-    availableCities,
-    timezones,
-    selectedCities,
-    handleCityChange,
+    clocks,
     setClockCount,
+    timezones,
+    availableCities,
+    handleCityChange,
   } = useClock();
 
-  if (loading) {
+  if (loading || !timezones) {
     return <Loader />;
   }
 
   return (
     <div>
-      <div style={{ marginBottom: "20px" }}>
-        <label>Количество часов: </label>
-        <select
-          value={clockCount}
-          onChange={(e) =>
-            setClockCount(Math.min(10, Math.max(1, Number(e.target.value))))
-          }
-        >
-          {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
-            <option key={num} value={num}>
-              {num}
-            </option>
-          ))}
-        </select>
-      </div>
+      <h1 className="text-3xl text-center mb-8">Часовые пояса</h1>
 
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-        {Array.from({ length: clockCount }).map((_, index) => (
-          <div key={index} style={{ textAlign: "center" }}>
-            <select
-              value={selectedCities[index] || ""}
-              onChange={(e) => handleCityChange(index, e.target.value)}
-              style={{ marginBottom: "10px", width: "200px" }}
-            >
-              <option value="">Выберите город</option>
-              {availableCities.map((city) => (
-                <option
-                  key={city}
-                  value={city}
-                  disabled={
-                    selectedCities.includes(city) &&
-                    selectedCities[index] !== city
-                  }
-                >
-                  {city} (UTC{timezones[city]})
-                </option>
-              ))}
-            </select>
+      <ClocksSelect clockCount={clocks.length} setClockCount={setClockCount} />
+
+      <div className="flex flex-wrap justify-between">
+        {clocks.map((clock, index) => (
+          <div key={index} className="text-center">
             <ClockDisplay
               timezoneOffset={
-                selectedCities[index]
-                  ? Number(timezones[selectedCities[index]])
-                  : 0
+                clock.timezone ? Number(timezones[clock.timezone]) : 0
               }
+            />
+            <ClockMenu
+              index={index}
+              clocks={clocks}
+              timezones={timezones}
+              selectedCity={clock.timezone}
+              availableCities={availableCities}
+              handleCityChange={handleCityChange}
             />
           </div>
         ))}

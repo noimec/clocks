@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "../../../../shared/config";
+import { ACTION_TYPES } from "@shared/config";
 
 const { FETCH_TIMEZONES, ADD_CLOCK, REMOVE_CLOCK, SET_TIMEZONE } = ACTION_TYPES
 
@@ -13,7 +13,7 @@ export interface FetchTimezonesAction {
 
 export interface FetchTimezonesSuccessAction {
     type: typeof FETCH_TIMEZONES;
-    payload: string[];
+    payload: { [city: string]: string };
 }
 
 export type LoadingActionTypes = FetchTimezonesAction;
@@ -29,7 +29,7 @@ export interface TimezonesState {
 export type TimezonesActionTypes = FetchTimezonesSuccessAction
 
 export interface Clock {
-    timezone: string;
+    timezone: string | null;
 }
 
 export interface ClocksState {
