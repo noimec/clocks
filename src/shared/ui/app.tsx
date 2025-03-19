@@ -1,5 +1,10 @@
-import { Clock } from "../../features/clock";
+import { Clock } from "@features/clock";
+import { Layout } from "./layout";
 
 export const App = () => {
-  return <Clock />;
+  return (
+    <Layout>
+      <Clock />
+    </Layout>
+  );
 };

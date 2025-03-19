@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface UseClockDisplayReturnType {
-    hourDeg: number
-    minuteDeg: number
-    secondDeg: number
-}
+import { UseClockDisplayReturnType } from "./types";
 
 export const useClockDisplay = (timezoneOffset: number): UseClockDisplayReturnType => {
     const [time, setTime] = useState(new Date());
@@ -15,6 +11,8 @@ export const useClockDisplay = (timezoneOffset: number): UseClockDisplayReturnTy
         }, 1000);
         return () => clearInterval(timer);
     }, []);
+
+    const segments = Array.from({ length: 12 })
 
     const localTime = new Date(time.getTime() + timezoneOffset * 3600000);
     const hours = localTime.getUTCHours();
@@ -28,6 +26,10 @@ export const useClockDisplay = (timezoneOffset: number): UseClockDisplayReturnTy
     return {
         hourDeg,
         minuteDeg,
-        secondDeg
+        secondDeg,
+        segments,
+        hours,
+        minutes,
+        seconds
     }
 }

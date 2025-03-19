@@ -1,10 +1,10 @@
-import { ACTION_TYPES } from '../../../../shared/config';
-import { ClockActionTypes, ClocksState } from './types';
+import { ACTION_TYPES } from "@shared/config";
+import { ClockActionTypes, ClocksState } from "./types";
 
 const { ADD_CLOCK, REMOVE_CLOCK, SET_TIMEZONE } = ACTION_TYPES;
 
 const initialState: ClocksState = {
-    clocks: [],
+    clocks: [{ timezone: null }],
 };
 
 export const clocksReducer = (
@@ -15,7 +15,7 @@ export const clocksReducer = (
         case ADD_CLOCK:
             return {
                 ...state,
-                clocks: [...state.clocks, action.payload],
+                clocks: [...state.clocks, { timezone: null }],
             };
         case REMOVE_CLOCK:
             return {

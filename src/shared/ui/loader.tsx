@@ -1,5 +1,5 @@
 export const Loader = () => (
-  <div style={{ textAlign: "center" }}>
+  <div className="flex flex-col items-center justify-center">
     <svg width="50" height="50" viewBox="0 0 50 50">
       <circle
         cx="25"

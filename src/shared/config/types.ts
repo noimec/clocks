@@ -1,5 +1,4 @@
-import { ClocksState, TimezonesState, LoadingState } from "../../entities/clock";
-
+import { ClocksState, TimezonesState, LoadingState } from "@entities/clock";
 export interface RootState {
     clocks: ClocksState;
     timezones: TimezonesState;
